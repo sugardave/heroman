@@ -122,6 +122,7 @@ var move = function(gameData, helpers) {
 // The "Safe Diamond Miner"
 // This hero will attempt to capture enemy diamond mines.
 var move = function(gameData, helpers) {
+  console.log("MOVING HERO");
   var myHero = gameData.activeHero;
 
   //Get stats on the nearest health well
