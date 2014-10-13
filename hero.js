@@ -27,23 +27,24 @@
 
 */
 
-/*
 // Aggressor
-var move = function(gameData, helpers) {
-  // Here, we ask if your hero's health is below 30
-  if (gameData.activeHero.health <= 30){
-    // If it is, head towards the nearest health well
-    return helpers.findNearestHealthWell(gameData);
-  } else {
-    // Otherwise, go attack someone...anyone.
-    return helpers.findNearestEnemy(gameData);
+var aggro = function(gameData, helpers) {
+  var myHero = gameData.activeHero;
+  if (!myHero.enhanced) {
+    myHero.enhanced = true;
+    console.log("CHANGE HOW WE TAKE DAMAGE");
+    myHero.takeDamage = function() {
+      console.log("OVERRIDING TAKEDAMAGE");
+      this.dead = false;
+      return 0;
+    };
   }
+  return helpers.findNearestEnemy(gameData);
 };
-*/
 
 /*
 // Health Nut
-var move = function(gameData, helpers) {
+var healthy = function(gameData, helpers) {
   // Here, we ask if your hero's health is below 75
   if (gameData.activeHero.health <= 75){
     // If it is, head towards the nearest health well
@@ -63,7 +64,7 @@ var move = function(gameData, helpers) {
 /*
 // The "Northerner"
 // This hero will walk North.  Always.
-var move = function(gameData, helpers) {
+var north = function(gameData, helpers) {
   var myHero = gameData.activeHero;
   return 'North';
 };
@@ -72,7 +73,7 @@ var move = function(gameData, helpers) {
 /*
 // The "Blind Man"
 // This hero will walk in a random direction each turn.
-var move = function(gameData, helpers) {
+var blind = function(gameData, helpers) {
   var myHero = gameData.activeHero;
   var choices = ['North', 'South', 'East', 'West'];
   return choices[Math.floor(Math.random()*4)];
@@ -82,7 +83,7 @@ var move = function(gameData, helpers) {
 /*
 // The "Priest"
 // This hero will heal nearby friendly champions.
-var move = function(gameData, helpers) {
+var priest = function(gameData, helpers) {
   var myHero = gameData.activeHero;
   if (myHero.health < 60) {
     return helpers.findNearestHealthWell(gameData);
@@ -95,7 +96,7 @@ var move = function(gameData, helpers) {
 /*
 // The "Unwise Assassin"
 // This hero will attempt to kill the closest enemy hero. No matter what.
-var move = function(gameData, helpers) {
+var dumbass = function(gameData, helpers) {
   var myHero = gameData.activeHero;
   if (myHero.health < 30) {
     return helpers.findNearestHealthWell(gameData);
@@ -108,7 +109,7 @@ var move = function(gameData, helpers) {
 /*
 // The "Careful Assassin"
 // This hero will attempt to kill the closest weaker enemy hero.
-var move = function(gameData, helpers) {
+var smartass = function(gameData, helpers) {
   var myHero = gameData.activeHero;
   if (myHero.health < 50) {
     return helpers.findNearestHealthWell(gameData);
@@ -118,11 +119,10 @@ var move = function(gameData, helpers) {
 };
 */
 
-
 // The "Safe Diamond Miner"
 // This hero will attempt to capture enemy diamond mines.
-var move = function(gameData, helpers) {
-  console.log("MOVING HERO");
+var safeMine = function(gameData, helpers) {
+  // console.log("MOVING HERO", gameData);
   var myHero = gameData.activeHero;
 
   //Get stats on the nearest health well
@@ -151,7 +151,7 @@ var move = function(gameData, helpers) {
 /*
 // The "Selfish Diamond Miner"
 // This hero will attempt to capture diamond mines (even those owned by teammates).
-var move = function(gameData, helpers) {
+var selfMine = function(gameData, helpers) {
   var myHero = gameData.activeHero;
 
   //Get stats on the nearest health well
@@ -180,10 +180,11 @@ var move = function(gameData, helpers) {
 /*
 // The "Coward"
 // This hero will try really hard not to die.
-var move = function(gameData, helpers) {
+var coward = function(gameData, helpers) {
   return helpers.findNearestHealthWell(gameData);
 };
 */
-
+var move = aggro;
+// var move = safeMine;
 // Export the move function here
 module.exports = move;

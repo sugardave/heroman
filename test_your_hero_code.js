@@ -67,6 +67,7 @@ for (var i=0; i<turnsToPlay; i++) {
     direction = heroMoveFunction(game, helpers);
   } else {
     direction = enemyMoveFunction(game, helpers);
+    direction = heroMoveFunction(game, helpers);
   }
   console.log('-----');
   console.log('Turn ' + i + ':');
