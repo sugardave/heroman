@@ -27,6 +27,7 @@ var heroMoveFunction = require('./hero.js');
 
 //The move function ("brain") the practice enemy will use
 var enemyMoveFunction = function(gameData, helpers) {
+  return helpers.findNearestEnemy(gameData);
   //Move in a random direction
   var choices = ['North', 'South', 'East', 'West'];
   return choices[Math.floor(Math.random()*4)];
@@ -67,7 +68,6 @@ for (var i=0; i<turnsToPlay; i++) {
     direction = heroMoveFunction(game, helpers);
   } else {
     direction = enemyMoveFunction(game, helpers);
-    direction = heroMoveFunction(game, helpers);
   }
   console.log('-----');
   console.log('Turn ' + i + ':');

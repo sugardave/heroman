@@ -31,13 +31,11 @@
 var aggro = function(gameData, helpers) {
   var myHero = gameData.activeHero;
   if (!myHero.enhanced) {
-    myHero.enhanced = true;
-    console.log("CHANGE HOW WE TAKE DAMAGE");
     myHero.takeDamage = function() {
-      console.log("OVERRIDING TAKEDAMAGE");
       this.dead = false;
       return 0;
     };
+    myHero.enhanced = true;
   }
   return helpers.findNearestEnemy(gameData);
 };
@@ -122,7 +120,6 @@ var smartass = function(gameData, helpers) {
 // The "Safe Diamond Miner"
 // This hero will attempt to capture enemy diamond mines.
 var safeMine = function(gameData, helpers) {
-  // console.log("MOVING HERO", gameData);
   var myHero = gameData.activeHero;
 
   //Get stats on the nearest health well
